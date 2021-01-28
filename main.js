@@ -4,9 +4,7 @@ let buttons = document.querySelectorAll("button")
 for (let button of buttons) {
   button.addEventListener('click',event => {
       const target = event.target;
-    if (!target.matches("button")) {
-        return;
-    }
+    
     if (target.classList.contains("operator")) {
        inputOperator(target.value);
        updateDisplay();
