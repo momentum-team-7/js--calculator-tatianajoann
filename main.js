@@ -8,7 +8,8 @@ for (let button of buttons) {
         return;
     }
     if (target.classList.contains("operator")) {
-        console.log("operator", target.value);
+       inputOperator(target.value);
+       updateDisplay();
         return;
     }
     if (target.classList.contains("decimal")) {
@@ -17,44 +18,53 @@ for (let button of buttons) {
         return;
     }
     if (target.classList.contains("clear")) {
-        console.log("clear", target.value);
+        inputClear(target.value);
+        updateDisplay();
         return;
     }
-
+    if (target.classList.contains("equal")) {
+        inputEqual();
+        updateDisplay();
+        return;
+    }
     inputDigit(target.value);
     updateDisplay();
   })
 }
 
 
+let displayValue = "0"
 
-
-const calculator = {
-    displayValue: "0",
-    firstOperand: null,
-    waitingForsecondOperand: false,
-    operator: null
-};
 
 function inputDigit(digit) {
-    let {displayValue} = calculator;
     if (displayValue === '0') {
-        calculator.displayValue = digit
+        displayValue = digit
     } else {
-        calculator.displayValue = displayValue + digit
+        displayValue = displayValue + digit
     }
 }
 
 function inputDecimal(dot) {
-    if (!calculator.displayValue.includes(dot)) {
-        calculator.displayValue = calculator.displayValue + dot;
+    if (!displayValue.includes(dot)) {
+        displayValue = displayValue + dot;
     }
 }
 
+function inputOperator(operator) {
+    displayValue = displayValue + operator;
+}
+
+function inputClear() {
+    displayValue = "0";
+}
+
+function inputEqual() {
+   displayValue = eval(displayValue);
+}
 
 function updateDisplay () {
     const display = document.querySelector(".calcdisplay");
-    display.value = calculator.displayValue;
+    display.value = displayValue;
 }
 
 
